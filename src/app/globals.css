@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+td {
+    @apply px-1 py-2 border-green-900
+}
+
