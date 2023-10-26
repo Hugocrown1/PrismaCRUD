@@ -1,7 +1,7 @@
 "use client";
 import Modal from "@/components/Modal";
 import StudentForm from "@/components/StudentForm";
-import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
+import { IconEdit, IconPlus, IconSearch, IconTrash } from "@tabler/icons-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -11,16 +11,15 @@ export default function Home() {
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
 
-  const [loadingContent, setLoadingContent] = useState(false);
+  const [loadingContent, setLoadingContent] = useState(true);
 
-  const [editedStudent, setEditedStudent] = useState({});
-  const [deletedStudent, setDeletedStudent] = useState({});
+  const [editedStudent, setEditedStudent] = useState(null);
+  const [deletedStudent, setDeletedStudent] = useState(null);
 
   const [filter, setFilter] = useState("");
   const [studentsList, setStudentsList] = useState([]);
 
   const fetchStudents = () => {
-    setLoadingContent(true);
     fetch("/api/registros")
       .then((response) => {
         if (!response.ok) {
@@ -31,12 +30,10 @@ export default function Home() {
       })
       .then((data) => {
         setStudents(data);
+        setLoadingContent(false);
       })
       .catch((error) => {
         console.error("Error en la solicitud:", error);
-      })
-      .finally(() => {
-        setLoadingContent(false);
       });
   };
 
@@ -84,7 +81,7 @@ export default function Home() {
           "Content-type": "application/json",
         },
       });
-      setEditedStudent({});
+      setEditedStudent(null);
     }
 
     fetchStudents();
@@ -103,18 +100,21 @@ export default function Home() {
         "Content-type": "application/json",
       },
     });
-    setDeletedStudent({});
+    setDeletedStudent(null);
     fetchStudents();
   };
 
   return (
-    <main className=" flex justify-center mx-auto max-w-7xl  p-5 ">
-      <section className="inset-0 relative w-[80%] mt-2">
-        <h1 className="text-center font-bold text-5xl my-6">Prisma CRUD</h1>
-        <div className="flex items-center justify-between">
-          <div>
-            <label className="mb-2 font-semibold" htmlFor="search">
-              Buscar:{" "}
+    <main className=" flex justify-center mx-auto max-w-7xl  sm:p-5 ">
+      <section className=" overflow-x-auto xl:overflow-visible inset-0 relative justify-center w-full lg:w-[80%]  mt-2 ">
+        <h1 className="text-center font-bold text-5xl min-w-[733px] my-6">
+          Prisma CRUD
+        </h1>
+        <div className="flex items-center justify-between min-w-[733px]">
+          <div className="flex items-center space-x-2">
+            <label className="mb-2 font-semibold flex" htmlFor="search">
+              <IconSearch />
+              <span>Buscar: </span>
             </label>
             <input
               className="ring-black ring-1 mb-2"
@@ -133,7 +133,7 @@ export default function Home() {
             <IconPlus />
           </button>
         </div>
-        <table className="w-full border-collapse bg-white table-auto rounded-md overflow-hidden ">
+        <table className="min-w-full border-collapse bg-white table-auto rounded-md overflow-hidden ">
           <thead className="bg-[#e5e5e5]">
             <tr className="font-semibold">
               <td className="py-2">ID</td>
@@ -177,7 +177,7 @@ export default function Home() {
 
         {loadingContent && (
           <svg
-            className=" absolute w-[10%] translate-x-[440px] translate-y-28"
+            className="absolute w-[10%] translate-x-[420px] -translate-y-96"
             viewBox="25 25 50 50"
           >
             <circle r="20" cy="50" cx="50"></circle>
@@ -207,7 +207,7 @@ export default function Home() {
 
         <Modal isVisible={showModalDelete}>
           <h2 className="text-2xl font-bold text-center my-4">
-            Eliminar a {deletedStudent.nombre}?
+            Eliminar a {deletedStudent?.nombre}?
           </h2>
           <div className="flex space-x-6">
             <button
