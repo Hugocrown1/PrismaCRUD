@@ -76,7 +76,7 @@ const StudentForm = ({
             setAge(e.target.value);
           }}
         />
-        {(parseFloat(age) < 0 || parseFloat(age) >= 200) && (
+        {(parseFloat(age) <= 0 || parseFloat(age) >= 200) && (
           <span className="mb-2 ml-1 font-medium text-red-600">
             Introduzca una edad válida
           </span>
@@ -93,7 +93,7 @@ const StudentForm = ({
       <div className="flex justify-center space-x-4 mb-4">
         <button
           type="submit"
-          disabled={parseFloat(age) < 0 || parseFloat(age) >= 200}
+          disabled={parseFloat(age) <= 0 || parseFloat(age) >= 200}
           className="bg-[#9d4edd] px-4 py-2 text-white font-semibold rounded-md w-full disabled:cursor-not-allowed disabled:bg-slate-500"
         >
           Enviar

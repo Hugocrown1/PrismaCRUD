@@ -1,7 +1,13 @@
 "use client";
 import Modal from "@/components/Modal";
 import StudentForm from "@/components/StudentForm";
-import { IconEdit, IconPlus, IconSearch, IconTrash } from "@tabler/icons-react";
+import {
+  IconBrandPrisma,
+  IconEdit,
+  IconPlus,
+  IconSearch,
+  IconTrash,
+} from "@tabler/icons-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -107,9 +113,10 @@ export default function Home() {
   return (
     <main className=" flex justify-center mx-auto max-w-7xl  sm:p-5 ">
       <section className=" overflow-x-auto xl:overflow-visible inset-0 relative justify-center w-full lg:w-[80%]  mt-2 ">
-        <h1 className="text-center font-bold text-5xl min-w-[733px] my-6">
-          Prisma CRUD
-        </h1>
+        <p className="text-center font-bold text-5xl min-w-[733px] my-6 flex items-center justify-center space-x-2">
+          <IconBrandPrisma size={50} />
+          <span>Prisma CRUD</span>
+        </p>
         <div className="flex items-center justify-between min-w-[733px]">
           <div className="flex items-center space-x-2">
             <label className="mb-2 font-semibold flex" htmlFor="search">
