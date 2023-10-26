@@ -206,7 +206,7 @@ export default function Home() {
         </Modal>
 
         <Modal isVisible={showModalDelete}>
-          <h2 className="text-2xl font-bold text-center my-4">
+          <h2 className="text-2xl font-bold text-center mt-4 mb-8">
             Eliminar a {deletedStudent?.nombre}?
           </h2>
           <div className="flex space-x-6">

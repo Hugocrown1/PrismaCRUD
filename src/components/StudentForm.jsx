@@ -33,6 +33,7 @@ const StudentForm = ({
     saveStudent(student);
     onClose();
   };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -46,6 +47,7 @@ const StudentForm = ({
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
+
       <select
         required
         className={`${gender === "" ? "text-[#9CA3AF]" : "text-black"}`}
@@ -63,15 +65,24 @@ const StudentForm = ({
           Femenino
         </option>
       </select>
-      <input
-        required
-        placeholder="Edad"
-        type="number"
-        value={age}
-        onChange={(e) => {
-          setAge(e.target.value);
-        }}
-      />
+      <div className="flex-col w-full mb-4">
+        <input
+          className="mb-0 w-full"
+          required
+          placeholder="Edad"
+          type="number"
+          value={age}
+          onChange={(e) => {
+            setAge(e.target.value);
+          }}
+        />
+        {(parseFloat(age) < 0 || parseFloat(age) >= 200) && (
+          <span className="mb-2 ml-1 font-medium text-red-600">
+            Introduzca una edad válida
+          </span>
+        )}
+      </div>
+
       <input
         required
         placeholder="Carrera"
@@ -82,7 +93,8 @@ const StudentForm = ({
       <div className="flex justify-center space-x-4 mb-4">
         <button
           type="submit"
-          className="bg-[#9d4edd] px-4 py-2 text-white font-semibold rounded-md w-full"
+          disabled={parseFloat(age) < 0 || parseFloat(age) >= 200}
+          className="bg-[#9d4edd] px-4 py-2 text-white font-semibold rounded-md w-full disabled:cursor-not-allowed disabled:bg-slate-500"
         >
           Enviar
         </button>
